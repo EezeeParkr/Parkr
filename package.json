@@ -17,8 +17,18 @@
     "url": "https://github.com/gxcad/parkr/issues"
   },
   "homepage": "https://github.com/gxcad/parkr#readme",
+<<<<<<< HEAD
   "dependencies": {
     "react": "^16.9.0",
     "react-dom": "^16.9.0"
+=======
+  "devDependencies": {
+    "@babel/core": "^7.6.0",
+    "@babel/preset-env": "^7.6.0",
+    "babel-loader": "^8.0.6",
+    "css-loader": "^3.2.0",
+    "style-loader": "^1.0.0",
+    "webpack": "^4.40.2"
+>>>>>>> 7be4f8cb7015903a6be379b2cb594234c3b129ea
   }
 }
