@@ -40,7 +40,7 @@ class App extends Component {
     return (
       <div>
         {/* add things inside this div */}
-        SUPER COOL APP
+        <p>THIS IS THE APP!!</p>
       </div>
     );
   }
