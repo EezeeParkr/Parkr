@@ -43,7 +43,7 @@ class App extends Component {
       <div>
         <Header />
         {/* add things inside this div */}
-        SUPER COOL APP
+        <p>THIS IS THE APP!!</p>
       </div>
     );
   }
