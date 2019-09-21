@@ -1,1 +1,1 @@
-# Parkr
+Parkr is a crowd sourced parking information database to help people know where to park.
