@@ -19,7 +19,8 @@
   "homepage": "https://github.com/gxcad/parkr#readme",
   "dependencies": {
     "react": "^16.9.0",
-    "react-dom": "^16.9.0"
+    "react-dom": "^16.9.0",
+    "pg": "^7.12.1"
   },
   "devDependencies": {
     "@babel/core": "^7.6.0",
