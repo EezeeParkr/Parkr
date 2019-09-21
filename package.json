@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/gxcad/parkr#readme",
   "dependencies": {
+    "@material-ui/core": "^4.4.2",
     "pg": "^7.12.1"
   },
   "devDependencies": {
