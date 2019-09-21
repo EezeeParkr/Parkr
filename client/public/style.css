@@ -1,0 +1,34 @@
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+#header {
+    position: fixed;
+    width: 100%;
+}
+#main {
+    padding-top: 80px;
+}
+#nav {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    border-top: 1px solid rgba(0,0,0,0.5);
+}
+
+#mapContainer {
+    background-color: rgba(0,0,0,0.2);
+    height: 500px;
+    display: flex;
+    padding: 10px;
+    justify-content: center;
+}
+
+#map {
+    border: 1px solid black;
+    width: 98%;
+}
+#inputPlaceholder {
+
+}
