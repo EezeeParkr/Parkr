@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/gxcad/parkr/issues"
   },
-  "homepage": "https://github.com/gxcad/parkr#readme"
+  "homepage": "https://github.com/gxcad/parkr#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
 }
