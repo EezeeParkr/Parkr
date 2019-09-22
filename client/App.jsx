@@ -10,6 +10,9 @@
  */
 
 import React, { Component } from 'react';
+import Header from './Header';
+import Nav from './Nav';
+
 // IMPORT CHILD COMPONENTS HERE
 
 class App extends Component {
@@ -39,8 +42,15 @@ class App extends Component {
 
     return (
       <div>
+        <Header />
         {/* add things inside this div */}
-        <p>THIS IS THE APP!!</p>
+        <div id="mapContainer">
+          <div id={'map'}>
+            This is map
+          </div>
+        </div>
+        <div id={'inputPlaceholder'}>Input placeholder</div>
+        <Nav />
       </div>
     );
   }

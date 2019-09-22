@@ -12,6 +12,7 @@
 import React from 'react';
 import { render } from 'react-dom';
 import App from './App.jsx'; // this hasn't been created yet
+import "./public/style.css";
 
 render(
   <App />,
