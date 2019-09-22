@@ -30,3 +30,8 @@ app.post('/post', (req, res) => {
 // app.get('/handicap', (req, res) => {
 
 // })
+
+// start server
+app.listen(port, () => {
+  console.log(`App listening on port ${port}`)
+});

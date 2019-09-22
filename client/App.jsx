@@ -11,7 +11,10 @@
 
 import React, { Component } from 'react';
 import MapContainer from './components/map.jsx';
-import GoogleApiWrapper from './components/map.jsx';
+// import GoogleApiWrapper from './components/map.jsx';
+import Header from './Header';
+// import Nav from './Nav';
+
 // IMPORT CHILD COMPONENTS HERE
 
 class App extends Component {
@@ -41,6 +44,7 @@ class App extends Component {
 
     return (
       <div>
+        <Header />
         {/* add things inside this div */}
         <p>SUPER COOL APP</p>
         <MapContainer></MapContainer>

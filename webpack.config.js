@@ -25,14 +25,14 @@ module.exports = {
           "style-loader", // creates style nodes from JS strings
           "css-loader", // translates CSS into CommonJS
           "sass-loader" // compiles Sass to CSS, using Node Sass by default
-        ],
-      },
-    ],
+        ]
+      }
+    ]
   },
   devServer: {
-    publicPath: 'localhost:3000/build',
+    publicPath: '/build',
     proxy: {
-      '/api': 'http://localhost:3000'
+      '/': 'http://localhost:3000'
     }
-  },
+  }
 }
