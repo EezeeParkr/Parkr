@@ -18,3 +18,4 @@ render(
   <App />,
   document.getElementById('app') // app is hung off the 'app' id in index.html
 );
+

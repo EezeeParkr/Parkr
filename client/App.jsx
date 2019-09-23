@@ -10,9 +10,12 @@
  */
 
 import React, { Component } from 'react';
+import MapContainer from './components/map.jsx';
+// import GoogleApiWrapper from './components/map.jsx';
 import Header from './Header';
 import Nav from './Nav';
 import Map from './Map';
+// import Nav from './Nav';
 
 // IMPORT CHILD COMPONENTS HERE
 
