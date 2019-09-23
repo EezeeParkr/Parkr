@@ -10,28 +10,31 @@ const LoadingContainer = (props) => (
 
 const style = {
   width: '100%',
-  height: '80%',
-  boxShadow: '0 2px 2px rgba(0,0,0,0.5)'
+  height: '100%',
+  // boxShadow: '0 2px 2px rgba(0,0,0,0.5)'
 };
 
 export class MapContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      selectedPlace: {
-        name: 'None for now'
-      }
+      selectedPlace: {},
+      markers: [],
+      activeMarker: {},
+      showingInfoWindow: false
     };
     this.onMarkerClick = this.onMarkerClick.bind(this);
     this.onInfoWindowClose = this.onInfoWindowClose.bind(this);
     this.mapClicked = this.mapClicked.bind(this);
     this.centerMoved = this.centerMoved.bind(this);
   }
-  onMouseoverMarker(props, marker, e) {
-    // ..
-  }
-  onMarkerClick (props, marker, e) {
-
+  onMarkerClick (markerProps, marker, e) {
+    this.setState(prev => ({
+      ...prev,
+      selectedPlace: markerProps,
+      activeMarker: marker,
+      showingInfoWindow: true
+    }));
   };
   onInfoWindowClose () {
 
@@ -40,7 +43,18 @@ export class MapContainer extends React.Component {
     // ...
     // console.log(mapProps);
     // console.log(map);
-    console.log(clickEvent);
+    const lat = clickEvent.latLng.lat();
+    const lng = clickEvent.latLng.lng();
+    map.panTo(clickEvent.latLng);
+    // console.log(map)
+    this.setState(prev => ({
+      ...prev,
+      showingInfoWindow: false,
+      activeMarker: null,
+      markers: [...prev.markers, <Marker key={lat + lng} name={'You set the position'} onClick={this.onMarkerClick} position={{ lat, lng }} />]
+    }));
+    const position = { lat, lng };
+    this.props.changePosition(position);
   };
   centerMoved(mapProps, map) {
     // ...
@@ -58,11 +72,11 @@ export class MapContainer extends React.Component {
     
     return (
       <Map id={'map'} google={this.props.google} zoom={14} onClick={this.mapClicked} onDragend={this.centerMoved} style={style}>
+        {
+          this.state.markers
+        }
 
-        <Marker onClick={this.onMarkerClick}
-                name={'Current location'} onMouseover={this.onMouseoverMarker} />
-
-        <InfoWindow onClose={this.onInfoWindowClose}>
+        <InfoWindow marker={this.state.activeMarker} visible={this.state.showingInfoWindow} onClose={this.onInfoWindowClose}>
           <div>
             <h1>{this.state.selectedPlace.name}</h1>
           </div>
