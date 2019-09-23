@@ -13,20 +13,23 @@ import React, { Component } from 'react';
 import MapContainer from './components/map.jsx';
 // import GoogleApiWrapper from './components/map.jsx';
 import Header from './Header';
-// import Nav from './Nav';
+import Nav from './Nav';
+import Map from './Map';
 
 // IMPORT CHILD COMPONENTS HERE
 
 class App extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     // state components
     this.state = {
       // ADD STATE COMPONENTS HERE
-    }
+      position: {}
+    };
 
     // binding functions to our object here
+    this.changePosition = this.changePosition.bind(this);
   }
 
   componentDidMount() {
@@ -38,6 +41,13 @@ class App extends Component {
   }
 
   // add class methods here
+  changePosition(position) {
+    this.setState(prev => ({
+      ...prev,
+      position
+    }));
+    console.log(position);
+  };
 
   render() {
     // do stuff then return the app
@@ -46,8 +56,11 @@ class App extends Component {
       <div>
         <Header />
         {/* add things inside this div */}
-        <p>SUPER COOL APP</p>
-        <MapContainer></MapContainer>
+        <div id="mapContainer">
+          <Map changePosition={this.changePosition} />
+        </div>
+
+        <Nav position={this.state.position} />
       </div>
     );
   }
