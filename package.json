@@ -36,6 +36,8 @@
     "webpack": "^4.40.2"
   },
   "dependencies": {
+    "@material-ui/core": "^4.4.3",
+    "@material-ui/icons": "^4.4.3",
     "google-maps-react": "^2.0.2",
     "nodemon": "^1.19.2",
     "react": "^16.9.0",
