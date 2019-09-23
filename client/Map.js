@@ -1,6 +1,7 @@
 import { GoogleApiWrapper, Map, InfoWindow, Marker } from 'google-maps-react';
 import YOUR_GOOGLE_API_KEY_GOES_HERE from '../config';
 import React from 'react';
+import axios from "axios";
 
 // ...
 
@@ -21,7 +22,8 @@ export class MapContainer extends React.Component {
       selectedPlace: {},
       markers: [],
       activeMarker: {},
-      showingInfoWindow: false
+      showingInfoWindow: false,
+      parking: []
     };
     this.onMarkerClick = this.onMarkerClick.bind(this);
     this.onInfoWindowClose = this.onInfoWindowClose.bind(this);
@@ -29,6 +31,7 @@ export class MapContainer extends React.Component {
     this.centerMoved = this.centerMoved.bind(this);
   }
   onMarkerClick (markerProps, marker, e) {
+    console.log(markerProps);
     this.setState(prev => ({
       ...prev,
       selectedPlace: markerProps,
@@ -37,16 +40,17 @@ export class MapContainer extends React.Component {
     }));
   };
   onInfoWindowClose () {
-
+    console.log('closed!');
   };
   mapClicked (mapProps, map, clickEvent) {
     // ...
     // console.log(mapProps);
     // console.log(map);
-    const lat = clickEvent.latLng.lat();
-    const lng = clickEvent.latLng.lng();
-    map.panTo(clickEvent.latLng);
-    // console.log(map)
+    const lat = clickEvent.latLng.lat(); // current marker latitude
+    const lng = clickEvent.latLng.lng(); // current marker longitude
+    map.panTo(clickEvent.latLng); // center map with marker
+
+    // when click, it should update state for showing info and active makers
     this.setState(prev => ({
       ...prev,
       showingInfoWindow: false,
@@ -54,18 +58,44 @@ export class MapContainer extends React.Component {
       markers: [...prev.markers, <Marker key={lat + lng} name={'You set the position'} onClick={this.onMarkerClick} position={{ lat, lng }} />]
     }));
     const position = { lat, lng };
+    // this is from parent component
     this.props.changePosition(position);
   };
   centerMoved(mapProps, map) {
     // ...
   }
+  componentDidMount() {
+    // fetch data
+    axios.get('/parking').then(res => {
+      console.log('res ', res.data);
+      this.setState(prev => ({
+        ...prev,
+        markers: res.data.map(parking => {
+          return <Marker key={parking.lat + parking.lng} onClick={this.onMarkerClick} position={{lat: parking.lat, lng: parking.lng}} name={parking.message} />
+        }),
+      }));
+    }).catch(e => {
+      console.log(e);
+    });
+  }
   render() {
     return (
-      <Map id={'map'} google={this.props.google} zoom={14} onClick={this.mapClicked} onDragend={this.centerMoved} style={style}>
+      <Map id={'map'} google={this.props.google} zoom={14} onClick={this.mapClicked} onDragend={this.centerMoved} style={style} initialCenter={{
+        lat: 33.987870,
+        lng: -118.470614
+      }}>
         {
+          // Render Marker component from parking array after fetching data;; initially it's empty array
           this.state.markers
         }
+        {/*{*/}
+        {/*  // Render Marker component from parking array after fetching data;; initially it's empty array*/}
+        {/*  this.state.parking.map(parking => {*/}
+        {/*    return <Marker key={parking.lat + parking.lng} onClick={this.onMarkerClick} position={{lat: parking.lat, lng: parking.lng}} name={parking.message} />*/}
+        {/*  })*/}
+        {/*}*/}
 
+        {/* Popup when click marker */}
         <InfoWindow marker={this.state.activeMarker} visible={this.state.showingInfoWindow} onClose={this.onInfoWindowClose}>
           <div>
             <h1>{this.state.selectedPlace.name}</h1>

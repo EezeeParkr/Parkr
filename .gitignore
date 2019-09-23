@@ -2,3 +2,4 @@ node_modules
 Note.md
 *config.js
 apikeys.js
+package-lock.json

@@ -2,6 +2,8 @@ const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
 const app = express();
+const filecontroller = require('./controllers');
+
 const port = 3000;
 
 // parse request body
@@ -15,16 +17,13 @@ app.get('/', (req, res) => {
   res.sendFile(path.resolve(__dirname, '../index.html'))
 })
 
-// get street sweeping info 
-app.get('/ss', (req, res) => {
-  // SELECT street cleaning data from current day
+// get street sweeping info
+// app.get('/ss', filecontroller.getSSData);
 
-})
+app.get('/parking', filecontroller.getParkingData);
 
-// user submitted info
-app.post('/post', (req, res) => {
-
-})
+// user submitted info about available parking, should be triggered when 'submit' button is clicked
+app.post('/submit', filecontroller.createEntry);
 
 // get handicap info
 // app.get('/handicap', (req, res) => {
@@ -35,3 +34,5 @@ app.post('/post', (req, res) => {
 app.listen(port, () => {
   console.log(`App listening on port ${port}`)
 });
+
+module.exports = app;
