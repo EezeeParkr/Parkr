@@ -13,6 +13,8 @@ import React, { Component } from 'react';
 import MapContainer from './components/map.jsx';
 // import GoogleApiWrapper from './components/map.jsx';
 import Header from './Header';
+import Nav from './Nav';
+import Map from './Map';
 // import Nav from './Nav';
 
 // IMPORT CHILD COMPONENTS HERE
@@ -46,8 +48,11 @@ class App extends Component {
       <div>
         <Header />
         {/* add things inside this div */}
-        <p>SUPER COOL APP</p>
-        <MapContainer></MapContainer>
+        <div id="mapContainer">
+          <Map />
+        </div>
+        <div id={'inputPlaceholder'}>Input placeholder</div>
+        <Nav />
       </div>
     );
   }
