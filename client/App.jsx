@@ -10,10 +10,10 @@
  */
 
 import React, { Component } from 'react';
-// import GoogleApiWrapper from './components/map.jsx';
 import Header from './Header';
 import Nav from './Nav';
 import Map from './Map';
+import axios from 'axios';
 
 // IMPORT CHILD COMPONENTS HERE
 
@@ -33,6 +33,7 @@ class App extends Component {
 
   componentDidMount() {
     // check if we need this
+
   }
 
   componentWillUnmount() {

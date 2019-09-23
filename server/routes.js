@@ -2,7 +2,7 @@ const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
 const app = express();
-const filecontroller = require('./controllers')
+const filecontroller = require('./controllers');
 const port = 3000;
 
 // parse request body
@@ -15,6 +15,11 @@ app.use(bodyParser.json());
 app.get('/', (req, res) => {
   res.sendFile(path.resolve(__dirname, '../index.html'))
 })
+
+// get street sweeping info
+// app.get('/ss', filecontroller.getSSData);
+
+app.get('/parking', filecontroller.getParkingData);
 
 // get street sweeping info 
 app.get('/ss', filecontroller.getSSData);
