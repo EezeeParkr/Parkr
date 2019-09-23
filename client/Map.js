@@ -5,7 +5,7 @@ import React from 'react';
 // ...
 
 const LoadingContainer = (props) => (
-  <div>Fancy loading container!</div>
+  <div>Wait for map loading!</div>
 );
 
 const style = {
@@ -38,6 +38,9 @@ export class MapContainer extends React.Component {
   };
   mapClicked (mapProps, map, clickEvent) {
     // ...
+    // console.log(mapProps);
+    // console.log(map);
+    console.log(clickEvent);
   };
   centerMoved(mapProps, map) {
     // ...
