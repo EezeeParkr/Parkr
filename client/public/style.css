@@ -12,10 +12,11 @@
     padding-top: 80px;
 }
 #nav {
-    position: fixed;
+    position: absolute;
     bottom: 0;
     width: 100%;
     border-top: 1px solid rgba(0,0,0,0.5);
+    z-index: 5;
 }
 
 /*#mapContainer {*/
@@ -26,10 +27,16 @@
 /*    justify-content: center;*/
 /*}*/
 
+#mapContainer {
+    /*height: 70vh;*/
+}
 /*#map {*/
 /*    height: 70%;*/
 /*}*/
 
-#inputPlaceholder {
-
+#inputContainer {
+    z-index: 2;
+    border-top: 1px solid rgba(0, 0, 0, 0.5);
+    padding: 2px 10px;
+    height: 70vh;
 }
