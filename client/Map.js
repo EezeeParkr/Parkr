@@ -1,4 +1,4 @@
-import { GoogleApiWrapper, Map, InfoWindow, Marker } from 'google-maps-react';
+import { GoogleApiWrapper, Map, InfoWindow, Marker, Polygon } from 'google-maps-react';
 import YOUR_GOOGLE_API_KEY_GOES_HERE from '../config';
 import React from 'react';
 
@@ -59,7 +59,17 @@ export class MapContainer extends React.Component {
   centerMoved(mapProps, map) {
     // ...
   }
+
   render() {
+    // these are some sample coordinates used to create a polygon on the page
+    // if you only have two points in your polygon, you create a line
+    // const triangleCoords = [
+    //   {lat: 25.774, lng: -80.190},
+    //   {lat: 18.466, lng: -66.118},
+    //   {lat: 32.321, lng: -64.757},
+    //   {lat: 25.774, lng: -80.190}
+    // ];
+    
     return (
       <Map id={'map'} google={this.props.google} zoom={14} onClick={this.mapClicked} onDragend={this.centerMoved} style={style}>
         {
@@ -71,6 +81,16 @@ export class MapContainer extends React.Component {
             <h1>{this.state.selectedPlace.name}</h1>
           </div>
         </InfoWindow>
+
+        {/* use this code to create a polygon (or a line) */}
+        {/* <Polygon
+          paths={triangleCoords}
+          strokeColor="#0000FF"
+          strokeOpacity={0.8}
+          strokeWeight={2}
+          fillColor="#0000FF"
+          fillOpacity={0.35} /> */}
+
       </Map>
     );
   }
