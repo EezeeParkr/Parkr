@@ -6,6 +6,7 @@
 #header {
     position: fixed;
     width: 100%;
+    z-index: 5;
 }
 #main {
     padding-top: 80px;
@@ -17,18 +18,18 @@
     border-top: 1px solid rgba(0,0,0,0.5);
 }
 
-#mapContainer {
-    background-color: rgba(0,0,0,0.2);
-    height: 500px;
-    display: flex;
-    padding: 10px;
-    justify-content: center;
-}
+/*#mapContainer {*/
+/*    background-color: rgba(0,0,0,0.2);*/
+/*    height: 500px;*/
+/*    display: flex;*/
+/*    padding: 10px;*/
+/*    justify-content: center;*/
+/*}*/
 
-#map {
-    border: 1px solid black;
-    width: 98%;
-}
+/*#map {*/
+/*    height: 70%;*/
+/*}*/
+
 #inputPlaceholder {
 
 }
