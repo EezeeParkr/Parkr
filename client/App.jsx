@@ -10,7 +10,6 @@
  */
 
 import React, { Component } from 'react';
-import MapContainer from './components/map.jsx';
 // import GoogleApiWrapper from './components/map.jsx';
 import Header from './Header';
 import Nav from './Nav';
@@ -46,14 +45,21 @@ class App extends Component {
 
     return (
       <div>
-        <Header />
         {/* add things inside this div */}
+
+        <Header />
+        
         <div id="mapContainer">
           <Map />
         </div>
+        
         <div id={'inputPlaceholder'}>Input placeholder</div>
+        
         <Nav />
+        
       </div>
+
+      
     );
   }
 
