@@ -15,20 +15,21 @@ import MapContainer from './components/map.jsx';
 import Header from './Header';
 import Nav from './Nav';
 import Map from './Map';
-// import Nav from './Nav';
 
 // IMPORT CHILD COMPONENTS HERE
 
 class App extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     // state components
     this.state = {
       // ADD STATE COMPONENTS HERE
-    }
+      position: {}
+    };
 
     // binding functions to our object here
+    this.changePosition = this.changePosition.bind(this);
   }
 
   componentDidMount() {
@@ -40,6 +41,13 @@ class App extends Component {
   }
 
   // add class methods here
+  changePosition(position) {
+    this.setState(prev => ({
+      ...prev,
+      position
+    }));
+    console.log(position);
+  };
 
   render() {
     // do stuff then return the app
@@ -49,10 +57,10 @@ class App extends Component {
         <Header />
         {/* add things inside this div */}
         <div id="mapContainer">
-          <Map />
+          <Map changePosition={this.changePosition} />
         </div>
-        <div id={'inputPlaceholder'}>Input placeholder</div>
-        <Nav />
+
+        <Nav position={this.state.position} />
       </div>
     );
   }
