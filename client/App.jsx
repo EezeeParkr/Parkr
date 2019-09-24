@@ -104,14 +104,23 @@ class App extends Component {
 
     return (
       <div>
-        <Header />
         {/* add things inside this div */}
+
+        <Header />
+        
         <div id="mapContainer">
           <Map parking={this.state.parking} addParking={this.addParking} changePosition={this.changePosition} center={this.state.center} setCenter={this.setCenter}/>
         </div>
+        
+        <div id={'inputPlaceholder'}>Input placeholder</div>
+        
+        <Nav />
+        
 
         <Nav position={this.state.position} updateParking={this.updateParking} parking={this.state.parking} setCenter={this.setCenter} />
       </div>
+
+      
     );
   }
 

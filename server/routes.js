@@ -3,7 +3,6 @@ const path = require('path');
 const bodyParser = require('body-parser');
 const app = express();
 const filecontroller = require('./controllers');
-
 const port = 3000;
 
 // parse request body
@@ -21,6 +20,9 @@ app.get('/', (req, res) => {
 // app.get('/ss', filecontroller.getSSData);
 
 app.get('/parking', filecontroller.getParkingData);
+
+// get street sweeping info 
+app.get('/ss', filecontroller.getSSData);
 
 // user submitted info about available parking, should be triggered when 'submit' button is clicked
 app.post('/submit', filecontroller.createEntry);
