@@ -5,8 +5,11 @@ import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
 import RestoreIcon from '@material-ui/icons/Restore';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
+import AddIcon from '@material-ui/icons/AddCircle';
+import ListIcon from '@material-ui/icons/List';
 import Drawer from '@material-ui/core/Drawer';
 import InputContainer from './InputContainer';
+import List from './List';
 
 const useStyles = makeStyles({
   root: {
@@ -32,6 +35,12 @@ export default function SimpleBottomNavigation(props) {
     console.log(side, open);
     setState({ ...state, [side]: open });
   };
+  const done = () => {
+    setState({ ...state, bottom: false });
+  };
+  const anotherDone = () => {
+    setState({...state, right: false});
+  };
   return (
     <div>
       <BottomNavigation
@@ -39,7 +48,9 @@ export default function SimpleBottomNavigation(props) {
         onChange={(event, newValue) => {
           if (newValue === 0) {
             toggleDrawer('bottom', true)(event);
-            console.log('hello!');
+          }
+          if (newValue === 2) {
+            toggleDrawer('right', true)(event);
           }
           setValue(newValue);
         }}
@@ -47,12 +58,21 @@ export default function SimpleBottomNavigation(props) {
         className={classes.root}
         id={'nav'}
       >
-        <BottomNavigationAction label="Recents" icon={<RestoreIcon />} />
+        <BottomNavigationAction label="Add" icon={<AddIcon />} />
         <BottomNavigationAction label="Favorites" icon={<FavoriteIcon />} />
-        <BottomNavigationAction label="Nearby" icon={<LocationOnIcon />} />
+        <BottomNavigationAction label="Summary" icon={<ListIcon />} />
       </BottomNavigation>
       <Drawer anchor="bottom" open={state.bottom} onClose={toggleDrawer('bottom', false)}>
-        <div><InputContainer position={props.position} /></div>
+        <div><InputContainer updateParking={props.updateParking} position={props.position} doneSubmit={done} /></div>
+      </Drawer>
+      <Drawer anchor="bottom" open={state.right} onClose={toggleDrawer('right', false)}>
+        <div style={{height: '80vh'}}>
+          {
+            props.parking.map(parking => {
+              return <List key={parking.lat+parking.lng} message={parking.message} startTime={parking.startTime} endTime={parking.endTime} position={{ lat: parking.lat, lng: parking.lng }} setCenter={props.setCenter} anotherDone={anotherDone} />
+            })
+          }
+        </div>
       </Drawer>
     </div>
   );

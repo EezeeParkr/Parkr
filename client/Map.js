@@ -11,7 +11,7 @@ const LoadingContainer = (props) => (
 
 const style = {
   width: '100%',
-  height: '100%',
+  height: '95%',
   // boxShadow: '0 2px 2px rgba(0,0,0,0.5)'
 };
 
@@ -23,7 +23,8 @@ export class MapContainer extends React.Component {
       markers: [],
       activeMarker: {},
       showingInfoWindow: false,
-      parking: []
+      parking: [],
+      currentMarker: {}
     };
     this.onMarkerClick = this.onMarkerClick.bind(this);
     this.onInfoWindowClose = this.onInfoWindowClose.bind(this);
@@ -31,7 +32,6 @@ export class MapContainer extends React.Component {
     this.centerMoved = this.centerMoved.bind(this);
   }
   onMarkerClick (markerProps, marker, e) {
-    console.log(markerProps);
     this.setState(prev => ({
       ...prev,
       selectedPlace: markerProps,
@@ -55,11 +55,15 @@ export class MapContainer extends React.Component {
       ...prev,
       showingInfoWindow: false,
       activeMarker: null,
-      markers: [...prev.markers, <Marker key={lat + lng} name={'You set the position'} onClick={this.onMarkerClick} position={{ lat, lng }} />]
+      currentMarker: {
+        lat,
+        lng
+      }
     }));
     const position = { lat, lng };
     // this is from parent component
     this.props.changePosition(position);
+    this.props.setCenter(position);
   };
   centerMoved(mapProps, map) {
     // ...
@@ -78,7 +82,6 @@ export class MapContainer extends React.Component {
       console.log(e);
     });
   }
-
   render() {
     // these are some sample coordinates used to create a polygon on the page
     // if you only have two points in your polygon, you create a line
@@ -90,21 +93,26 @@ export class MapContainer extends React.Component {
     // ];
     
     return (
-      <Map id={'map'} google={this.props.google} zoom={14} onClick={this.mapClicked} onDragend={this.centerMoved} style={style} initialCenter={{
+      <Map id={'map'} google={this.props.google} zoom={16} onClick={this.mapClicked} onDragend={this.centerMoved} style={style} initialCenter={{
         lat: 33.987870,
         lng: -118.470614
-      }}>
+      }}
+        center={{
+          lat: this.props.center.lat,
+          lng: this.props.center.lng
+        }}
+      >
         {
-          // Render Marker component from parking array after fetching data;; initially it's empty array
-          this.state.markers
+          /* This current marker that was clicked on map */
+          this.state.currentMarker.lat && <Marker onClick={this.onMarkerClick} position={{lat: this.state.currentMarker.lat, lng: this.state.currentMarker.lng}} name={'Please submit to save'} />
         }
-        {/*{*/}
-        {/*  // Render Marker component from parking array after fetching data;; initially it's empty array*/}
-        {/*  this.state.parking.map(parking => {*/}
-        {/*    return <Marker key={parking.lat + parking.lng} onClick={this.onMarkerClick} position={{lat: parking.lat, lng: parking.lng}} name={parking.message} />*/}
-        {/*  })*/}
         {/*}*/}
-
+        {
+          /* Populate component with Marker components with right information */
+          this.props.parking.map(parking => {
+            return <Marker key={parking.lat + parking.lng} onClick={this.onMarkerClick} position={{lat: parking.lat, lng: parking.lng}} name={parking.message} />
+          })
+        }
         {/* Popup when click marker */}
         <InfoWindow marker={this.state.activeMarker} visible={this.state.showingInfoWindow} onClose={this.onInfoWindowClose}>
           <div>
