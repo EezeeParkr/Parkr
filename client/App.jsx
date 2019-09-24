@@ -14,7 +14,6 @@ import Header from './Header';
 import Nav from './Nav';
 import Map from './Map';
 import axios from 'axios';
-import {Marker} from "google-maps-react";
 
 // IMPORT CHILD COMPONENTS HERE
 
@@ -43,7 +42,7 @@ class App extends Component {
     this.setCenter = this.setCenter.bind(this);
   }
   setCenter(position) {
-    console.log('centered: ', position);
+    // this.state.center will be the center position of map
     this.setState(prev => ({
       ...prev,
       center: position
@@ -51,17 +50,15 @@ class App extends Component {
   }
 
   componentDidMount() {
-    // check if we need this
+    // fetch data from db for parking and set that it to state
     axios
       .get('/parking')
       .then(res => {
-        console.log('mounted!');
         this.setState(prev => ({
           ...prev,
           parking: res.data
         }));
       }).catch(e => {
-      console.log(e);
     });
   }
 
@@ -81,21 +78,15 @@ class App extends Component {
     }));
   }
 
-  componentWillUnmount() {
-    // check if we need this
-  }
-
   // add class methods here
-  changePosition(position) {
+  changePosition(position) { // This is for current position
     this.setState(prev => ({
       ...prev,
       position
     }));
-    console.log(position);
   };
 
   updateParking() {
-    console.log('update parking!');
     axios
       .get('/parking')
       .then(res => {
@@ -116,7 +107,7 @@ class App extends Component {
         <Header />
         {/* add things inside this div */}
         <div id="mapContainer">
-          <Map parking={this.state.parking} addParking={this.addParking} changePosition={this.changePosition} center={this.state.center}/>
+          <Map parking={this.state.parking} addParking={this.addParking} changePosition={this.changePosition} center={this.state.center} setCenter={this.setCenter}/>
         </div>
 
         <Nav position={this.state.position} updateParking={this.updateParking} parking={this.state.parking} setCenter={this.setCenter} />

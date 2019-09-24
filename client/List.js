@@ -12,7 +12,10 @@ const useStyles = makeStyles(theme => ({
 export default function PaperSheet(props) {
   const classes = useStyles();
   return (
-    <div onClick={() => props.setCenter(props.position)}>
+    <div onClick={() => {
+      props.setCenter(props.position);
+      props.anotherDone();
+    }}>
       <Paper className={classes.root}>
         <Typography variant="h5" component="h3">
           {

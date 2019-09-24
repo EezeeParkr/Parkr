@@ -32,7 +32,6 @@ export class MapContainer extends React.Component {
     this.centerMoved = this.centerMoved.bind(this);
   }
   onMarkerClick (markerProps, marker, e) {
-    console.log(markerProps);
     this.setState(prev => ({
       ...prev,
       selectedPlace: markerProps,
@@ -64,32 +63,10 @@ export class MapContainer extends React.Component {
     const position = { lat, lng };
     // this is from parent component
     this.props.changePosition(position);
+    this.props.setCenter(position);
   };
   centerMoved(mapProps, map) {
     // ...
-  }
-  componentDidMount() {
-    // fetch data
-    // console.log(this.props.parking);
-    // this.setState(prev => ({
-    //   ...prev,
-    //   parking: this.props.parking,
-    //   markers: this.props.parking.map(parking => {
-    //     return <Marker key={parking.lat + parking.lng} onClick={this.onMarkerClick} position={{lat: parking.lat, lng: parking.lng}} name={parking.message} />
-    //   })
-    // }));
-    // axios.get('/parking').then(res => {
-    //   console.log('res ', res.data);
-    //   this.setState(prev => ({
-    //     ...prev,
-    //     markers: res.data.map(parking => {
-    //       return <Marker key={parking.lat + parking.lng} onClick={this.onMarkerClick} position={{lat: parking.lat, lng: parking.lng}} name={parking.message} />
-    //     }),
-    //     parking: res.data
-    //   }));
-    // }).catch(e => {
-    //   console.log(e);
-    // });
   }
   render() {
     return (
@@ -103,13 +80,12 @@ export class MapContainer extends React.Component {
         }}
       >
         {
+          /* This current marker that was clicked on map */
           this.state.currentMarker.lat && <Marker onClick={this.onMarkerClick} position={{lat: this.state.currentMarker.lat, lng: this.state.currentMarker.lng}} name={'Please submit to save'} />
         }
-        {/*{*/}
-        {/*  // Render Marker component from parking array after fetching data;; initially it's empty array*/}
-        {/*  this.state.markers*/}
         {/*}*/}
         {
+          /* Populate component with Marker components with right information */
           this.props.parking.map(parking => {
             return <Marker key={parking.lat + parking.lng} onClick={this.onMarkerClick} position={{lat: parking.lat, lng: parking.lng}} name={parking.message} />
           })

@@ -35,6 +35,12 @@ export default function SimpleBottomNavigation(props) {
     console.log(side, open);
     setState({ ...state, [side]: open });
   };
+  const done = () => {
+    setState({ ...state, bottom: false });
+  };
+  const anotherDone = () => {
+    setState({...state, right: false});
+  };
   return (
     <div>
       <BottomNavigation
@@ -57,13 +63,13 @@ export default function SimpleBottomNavigation(props) {
         <BottomNavigationAction label="Summary" icon={<ListIcon />} />
       </BottomNavigation>
       <Drawer anchor="bottom" open={state.bottom} onClose={toggleDrawer('bottom', false)}>
-        <div><InputContainer updateParking={props.updateParking} position={props.position} /></div>
+        <div><InputContainer updateParking={props.updateParking} position={props.position} doneSubmit={done} /></div>
       </Drawer>
       <Drawer anchor="bottom" open={state.right} onClose={toggleDrawer('right', false)}>
         <div style={{height: '80vh'}}>
           {
             props.parking.map(parking => {
-              return <List message={parking.message} startTime={parking.startTime} endTime={parking.endTime} position={{ lat: parking.lat, lng: parking.lng }} setCenter={props.setCenter} />
+              return <List key={parking.lat+parking.lng} message={parking.message} startTime={parking.startTime} endTime={parking.endTime} position={{ lat: parking.lat, lng: parking.lng }} setCenter={props.setCenter} anotherDone={anotherDone} />
             })
           }
         </div>

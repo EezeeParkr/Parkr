@@ -57,6 +57,7 @@ export default function InputContainer (props) {
       endDate
     }).then(function(res){
       console.log('response on post ', res);
+      props.doneSubmit();
       props.updateParking();
     }).catch(e => {
       console.log('error: ', e);
