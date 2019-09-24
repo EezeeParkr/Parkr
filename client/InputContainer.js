@@ -50,13 +50,14 @@ export default function InputContainer (props) {
     const position = props.position;
     console.log('startDate', startDate);
     console.log('endDate', endDate);
-    axios.post('/endpoint', {
+    axios.post('/submit', {
       position, // object with lat and lng as properties
       message, // str
       startDate, //
       endDate
-    }).then(res => {
+    }).then(function(res){
       console.log('response on post ', res);
+      props.updateParking();
     }).catch(e => {
       console.log('error: ', e);
     });
